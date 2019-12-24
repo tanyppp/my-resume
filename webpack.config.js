@@ -95,7 +95,7 @@ module.exports = {
       chunkFilename: '[id].[hash:8].css'
     }),
     new webpack.ProvidePlugin({
-      $: path.resolve(__dirname, './src/js/core/jquery') // 将jquery模块以$的方式注入到每个模块中
+      $: 'jquery' // 将jquery模块以$的方式注入到每个模块中
     }),
     new webpack.DefinePlugin({
       mode: JSON.stringify(process.env.NODE_ENV)
@@ -113,7 +113,11 @@ module.exports = {
     hot: true
   },
   resolve: {
-    extensions: ['.js', '.scss', '.css', '.json']
+    extensions: ['.js', '.scss', '.css', '.json'],
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      // 'fullpage': path.resolve(__dirname, './src/js/core/fullpage')
+    }
   },
   optimization: {
     minimizer: process.env.NODE_ENV === 'production' ?
