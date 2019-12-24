@@ -48,7 +48,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
     "@babel/runtime": "^7.5.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.4.0",
     "fullpage.js": "^2.9.3"
   }
 }
