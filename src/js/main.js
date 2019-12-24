@@ -6,7 +6,6 @@ import { initSection5 } from './pageEngine/initSection5'
 
 // 重写es6方法
 import '@babel/polyfill'
-import 'fullpage.js'
 import '../scss/main.scss'
 
 $(function () {
