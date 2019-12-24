@@ -2960,6 +2960,14 @@ file-entry-cache@^5.0.1:
   dependencies:
     flat-cache "^2.0.1"
 
+file-loader@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.npm.taobao.org/file-loader/download/file-loader-5.0.2.tgz#7f3d8b4ac85a5e8df61338cfec95d7405f971caa"
+  integrity sha1-fz2LSshaXo32EzjP7JXXQF+XHKo=
+  dependencies:
+    loader-utils "^1.2.3"
+    schema-utils "^2.5.0"
+
 file-uri-to-path@1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/file-uri-to-path/download/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"

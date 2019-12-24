@@ -1,4 +1,3 @@
-import { generateElement } from './generateElment'
 import { initSection1 } from './pageEngine/initSection1'
 import { initSection2 } from './pageEngine/initSection2'
 import { initSection3 } from './pageEngine/initSection3'
@@ -11,29 +10,18 @@ import 'fullpage.js'
 import '../scss/main.scss'
 
 $(function () {
-	const {
-    wrapper,
-    section1,
-    section2,
-    section3,
-    section4,
-    section5
-  } = generateElement()
+  const $root = $('#resume-page')
+  const $sections = $root.find('.section')
 
-  console.log(
-    section1,
-    section2,
-    section3,
-    section4,
-    section5
-  )
+  $root
+    .fullpage({
+      navigation: true,
+      navigationPosition: 'right'
+    })
 
-  wrapper
-    .fullpage()
-
-  initSection1(section1.find('.fp-tableCell'))
-  initSection2(section2.find('.fp-tableCell'))
-  initSection3(section3.find('.fp-tableCell'))
-  initSection4(section4.find('.fp-tableCell'))
-  initSection5(section5.find('.fp-tableCell'))
+  initSection1($sections.eq(0).find('.fp-tableCell'))
+  initSection2($sections.eq(1).find('.fp-tableCell'))
+  initSection3($sections.eq(2).find('.fp-tableCell'))
+  initSection4($sections.eq(3).find('.fp-tableCell'))
+  initSection5($sections.eq(4).find('.fp-tableCell'))
 })

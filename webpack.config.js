@@ -20,64 +20,67 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.(scss|sass)$/,
-      use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
-    }, {
-      test: /\.css$/,
-      use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
-    }, {
-      test: /\.js$/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-          plugins: [
-            ['@babel/plugin-proposal-decorators', {
-              legacy: true
-            }],
-            ['@babel/plugin-proposal-class-properties', {
-              loose: true
-            }],
-            '@babel/plugin-transform-runtime'
-          ],
-          ignore: [
-            'dist/**/*.js',
-            'packages/**/*.js'
-          ]
+        test: /\.(scss|sass)$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+      }, {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+      }, {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: [
+              ['@babel/plugin-proposal-decorators', {
+                legacy: true
+              }],
+              ['@babel/plugin-proposal-class-properties', {
+                loose: true
+              }],
+              '@babel/plugin-transform-runtime'
+            ],
+            ignore: [
+              'dist/**/*.js',
+              'packages/**/*.js'
+            ]
+          }
+        },
+        include: path.resolve(__dirname, './src')
+      }, {
+        test: /\.js$/,
+        use: {
+          loader: 'eslint-loader',
+          options: {
+            enforce: 'pre' // 在所有loader之前执行
+          }
+        }
+      }, {
+        test: /\.(png|jpg|jpeg)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: 'images/[name].[hash:8].[ext]', // 设置打包后的文件名
+            limit: 100 * 1024, // 小于100k使用base64，大于100k使用
+            esModule: false
+          }
+        }
+      }, {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: 'fonts/[name].[hash:8].[ext]',
+            limit: 100 * 1024,
+            esModule: false
+          }
         }
       },
-      include: path.resolve(__dirname, './src')
-    }, {
-      test: /\.js$/,
-      use: {
-        loader: 'eslint-loader',
-        options: {
-          enforce: 'pre' // 在所有loader之前执行
-        }
-      }
-    }, {
-      test: /\.(png|jpg|jpeg)$/,
-      use: {
-        loader: 'url-loader',
-        options: {
-          name: '[name].[hash:8].[ext]', // 设置打包后的文件名
-          limit: 100 * 1024, // 小于100k使用base64，大于100k使用
-          ouputPath: 'images/' // 设置打包后的文件夹
-        }
-      }
-    }, {
-      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-      use: {
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: 'fonts/[name].[hash:8].[ext]'
-        }
-      }
-    }, {
-      test: /\.(html|htm)$/,
-      use: 'html-withimg-loader'
-    }]
+      // {
+      //   test: /\.(html|htm)$/,
+      //   use: 'html-withimg-loader'
+      // }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -86,23 +89,23 @@ module.exports = {
       filename: 'index.html',
       title: 'web前端工程师-简历',
       minify: {
-        removeAttributeQuotes: true,  // 去掉属性引号
-        collapseWhitespace: true      // 去掉空格
+        removeAttributeQuotes: true, // 去掉属性引号
+        collapseWhitespace: true // 去掉空格
       }
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[hash:8].css',
       chunkFilename: '[id].[hash:8].css'
     }),
-    new webpack.ProvidePlugin({
-      $: 'jquery' // 将jquery模块以$的方式注入到每个模块中
-    }),
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery' // 将jquery模块以$的方式注入到每个模块中
+    // }),
     new webpack.DefinePlugin({
       mode: JSON.stringify(process.env.NODE_ENV)
     }),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, './src/static'),
-      to: path.resolve(__dirname, './dist') + '/static'
+      to: path.resolve(__dirname, './dist/static')
     }]),
     new CleanWebpackPlugin(),
     new WebpackDeepScopeAnalysisPlugin()
@@ -116,35 +119,32 @@ module.exports = {
     extensions: ['.js', '.scss', '.css', '.json'],
     alias: {
       '@': path.resolve(__dirname, './src'),
-      // 'fullpage': path.resolve(__dirname, './src/js/core/fullpage')
     }
   },
   optimization: {
-    minimizer: process.env.NODE_ENV === 'production' ?
-      [
-        new UglifyjsWebpackPlugin({
-          cache: true, // 是否缓存
-          parallel: true, // 是否并发打包
-          sourceMap: true // 是否将压缩的js与源码映射
-        }),
-        new OptimizeCssAssetsWebpackPlugin()
-      ] : [],
-    splitChunks: process.env.NODE_ENV === 'production' ?
-      {
-        cacheGroups: { // 缓存组里放需要抽离的模块，模块名自取
-          common: { // 抽离公共模块
-            chunks: 'initial',
-            minSize: 0, // 大于等于0就要进行抽离
-            minChunks: 2 // 最少要引用两次才抽离
-          },
-          vendor: { // 抽离node_modules下的模块
-            priority: 1, // 优先抽离
-            test: /node_modules/,
-            chunks: 'initial',
-            minSize: 0,
-            minChunks: 2
-          }
+    minimizer: process.env.NODE_ENV === 'production' ? [
+      new UglifyjsWebpackPlugin({
+        cache: true, // 是否缓存
+        parallel: true, // 是否并发打包
+        sourceMap: true // 是否将压缩的js与源码映射
+      }),
+      new OptimizeCssAssetsWebpackPlugin()
+    ] : [],
+    splitChunks: process.env.NODE_ENV === 'production' ? {
+      cacheGroups: { // 缓存组里放需要抽离的模块，模块名自取
+        common: { // 抽离公共模块
+          chunks: 'initial',
+          minSize: 0, // 大于等于0就要进行抽离
+          minChunks: 2 // 最少要引用两次才抽离
+        },
+        vendor: { // 抽离node_modules下的模块
+          priority: 1, // 优先抽离
+          test: /node_modules/,
+          chunks: 'initial',
+          minSize: 0,
+          minChunks: 2
         }
-      } : {}
+      }
+    } : {}
   }
 }

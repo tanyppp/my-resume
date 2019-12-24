@@ -1,7 +1,62 @@
 @import './normalize.scss';
 @import './fullpage.scss';
+@import './my-animate.scss';
 @import './section1.scss';
 @import './section2.scss';
 @import './section3.scss';
 @import './section4.scss';
 @import './section5.scss';
+
+div#fp-nav.right ul{
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 7px;
+        bottom: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 1px dashed #8c7576;
+    }
+
+    li {
+        width: 14px;
+        height: 14px;
+        margin: 24px 7px;
+
+        a {
+            span {
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                margin: 0 !important;
+                background-color: #ddd;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 4px;
+                    top: 4px;
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background-color: #337ab7;
+                }
+
+                &:hover {
+                    background-color: #fff;
+                }
+            }
+
+            &.active {
+                span {
+                    width: 100%;
+                    height: 100%;
+                    animation: sploosh 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+                }
+            }
+        }
+    }
+}

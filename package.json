@@ -31,6 +31,7 @@
     "eslint-loader": "^3.0.3",
     "eslint-plugin-flowtype": "^4.5.2",
     "expose-loader": "^0.7.5",
+    "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
     "html-withimg-loader": "^0.1.16",
     "mini-css-extract-plugin": "^0.9.0",
@@ -47,8 +48,6 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
-    "@babel/runtime": "^7.5.4",
-    "jquery": "^3.4.1",
-    "fullpage.js": "^2.9.3"
+    "@babel/runtime": "^7.5.4"
   }
 }
