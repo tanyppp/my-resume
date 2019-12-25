@@ -10,13 +10,18 @@ const {
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default
 
+const configs = require('./config/env.' + process.env.NODE_ENV + '.js')
+console.log(configs)
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
   mode: process.env.NODE_ENV,
   devtool: 'cheap-module-source-map',
   entry: path.resolve(__dirname, './src/js/main.js'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].[hash:8].js'
+    filename: 'js/[name].[hash:8].js',
+    publicPath: configs.serverIp
   },
   module: {
     rules: [{
@@ -110,11 +115,13 @@ module.exports = {
     new CleanWebpackPlugin(),
     new WebpackDeepScopeAnalysisPlugin()
   ],
-  devServer: {
-    port: 8000,
-    contentBase: path.resolve(__dirname, './dist'),
-    hot: true
-  },
+  devServer: isProd
+    ? {}
+    : {
+      port: configs.port,
+      contentBase: path.resolve(__dirname, './dist'),
+      hot: true
+    },
   resolve: {
     extensions: ['.js', '.scss', '.css', '.json'],
     alias: {
@@ -122,7 +129,7 @@ module.exports = {
     }
   },
   optimization: {
-    minimizer: process.env.NODE_ENV === 'production' ? [
+    minimizer: isProd ? [
       new UglifyjsWebpackPlugin({
         cache: true, // 是否缓存
         parallel: true, // 是否并发打包
@@ -130,7 +137,7 @@ module.exports = {
       }),
       new OptimizeCssAssetsWebpackPlugin()
     ] : [],
-    splitChunks: process.env.NODE_ENV === 'production' ? {
+    splitChunks: isProd ? {
       cacheGroups: { // 缓存组里放需要抽离的模块，模块名自取
         common: { // 抽离公共模块
           chunks: 'initial',

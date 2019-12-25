@@ -1,3 +1,58 @@
-.resume-page__slide1 .fp-tableCell {
+.resume-page__slide1 {
     position: relative;
+
+    &:hover {
+        .resume-page__slide1-introduce {
+            box-shadow: 0 0 50px #111;
+        }
+    }
+
+    &-mask {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .3);
+    }
+
+    &-introduce {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 700px;
+        padding: 40px 0 50px;
+        text-align: center;
+        color: #000;
+        border-radius: 10px;
+        user-select: none;
+        transition: all .5s;
+
+        &:hover {
+            box-shadow: 0 0 70px #111,
+                inset 0 0 10px #111 !important;
+        }
+
+        h1 {
+            font-family: 'COCOGOOSE';
+            line-height: 108px;
+            font-size: 70px;
+            font-weight: bolder;
+        }
+
+        h2 {
+            font-family: 'COCOGOOSE';
+            line-height: 40px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        p {
+            line-height: 30px;
+            margin-top: 8px;
+            font-size: 20px;
+
+        }
+    }
 }
