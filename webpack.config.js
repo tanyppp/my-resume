@@ -61,7 +61,7 @@ module.exports = {
           }
         }
       }, {
-        test: /\.(png|jpg|jpeg)$/,
+        test: /\.(png|jpg|jpeg|svg)$/,
         use: {
           loader: 'url-loader',
           options: {
@@ -90,7 +90,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './public/index.template.html'),
-      favicon: path.resolve(__dirname, './public/logo.png'),
+      favicon: path.resolve(__dirname, './public/logo.ico'),
       filename: 'index.html',
       title: 'web前端工程师-简历',
       minify: {

@@ -8,56 +8,134 @@
 @import './section4.scss';
 @import './section5.scss';
 
-div#fp-nav.right ul{
+div#fp-nav.right {
+  ul {
     position: relative;
 
     &::before {
-        content: '';
-        position: absolute;
-        top: 7px;
-        bottom: 7px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-left: 1px dashed #8c7576;
+      content: '';
+      position: absolute;
+      top: 7px;
+      bottom: -39px;
+      left: 50%;
+      transform: translateX(-1px);
+      border-left: 1px dashed #8c7576;
     }
 
     li {
-        width: 14px;
-        height: 14px;
-        margin: 24px 7px;
+      width: 14px;
+      height: 14px;
+      margin: 24px 7px;
 
-        a {
-            span {
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                margin: 0 !important;
-                background-color: #ddd;
+      a {
+        span {
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          margin: 0 !important;
+          background-color: #ddd;
 
-                &::before {
-                    content: '';
-                    position: absolute;
-                    left: 4px;
-                    top: 4px;
-                    width: 6px;
-                    height: 6px;
-                    border-radius: 50%;
-                    background-color: #337ab7;
-                }
+          &::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #337ab7;
+          }
 
-                &:hover {
-                    background-color: #fff;
-                }
-            }
-
-            &.active {
-                span {
-                    width: 100%;
-                    height: 100%;
-                    animation: sploosh 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-                }
-            }
+          &:hover {
+            background-color: #fff;
+          }
         }
+
+        &.active {
+          span {
+            width: 100%;
+            height: 100%;
+            animation: sploosh 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+          }
+        }
+      }
     }
+  }
+
+  div.resume-audio {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin: 24px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+
+    &__bg {
+      width: 100%;
+      height: 100%;
+      transform: scale(1.1);
+      background: url('../images/boll.svg') center / cover no-repeat;
+
+      @keyframes bgRun {
+        0% {
+          transform: rotate(0) scale(1.1);
+        }
+
+        100% {
+          transform: rotate(360deg) scale(1.1);
+        }
+      }
+
+      &.run {
+        animation: bgRun 30s infinite;
+      }
+    }
+
+    &.playing {
+      &::before {
+        background: url('../images/pause.svg') center / cover no-repeat;
+      }
+    }
+
+    &.paused {
+      &::before {
+        background: url('../images/play.svg') center / cover no-repeat;
+      }
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: block;
+      width: 50%;
+      height: 50%;
+      transform: translate(-50%, -50%);
+      transition: all .3s;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      opacity: .1;
+    }
+
+    &:hover::before {
+      opacity: 1;
+    }
+
+    &:hover::after {
+      opacity: .8;
+    }
+  }
 }
