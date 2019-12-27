@@ -10,7 +10,7 @@ const {
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default
 
-const configs = require('./config/env.' + process.env.NODE_ENV + '.js')
+const configs = require('./config/env.' + process.env.mode + '.js')
 console.log(configs)
 const isProd = process.env.NODE_ENV === 'production'
 

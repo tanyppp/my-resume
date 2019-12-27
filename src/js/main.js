@@ -19,7 +19,15 @@ $(function () {
   $root
     .fullpage({
       navigation: true,
-      navigationPosition: 'right'
+      navigationPosition: 'right',
+      navigationTooltips: [
+        '首页',
+        '关于我',
+        '技术栈',
+        '我的经历',
+        '我的作品',
+        '联系我'
+      ]
     })
 
   // audio
@@ -42,46 +50,52 @@ $(function () {
       .append($audio)
     bindAudioEvent($audio)
     audioStarter($audio)
-  }
 
-  function bindAudioEvent(el) {
-    const bgEl = el.find('.resume-audio__bg')
-    const audioEl = el.find('audio').get(0)
-    el
-      .on('click', function () {
-        if(audioEl.paused) {
-          el.removeClass('paused')
-          el.addClass('playing')
-          bgEl.addClass('run')
-          audioEl.play()
+    function bindAudioEvent(el) {
+      const audioEl = el.find('audio').get(0)
+      el
+        .on('click', function () {
+          if(audioEl.paused) {
+            audioPlay(el)
+          } else {
+            audioPause(el)
+          }
+        })
+    }
+  
+    function audioStarter(el) {
+      const audioEl = el.find('audio').get(0)
+      if (audioEl != null) {
+        if (isWxClient()) {
+          document.addEventListener('WeixinJSBridgeReady', run, false)
         } else {
-          el.removeClass('playing')
-          el.addClass('paused')
-          bgEl.removeClass('run')
-          audioEl.pause()
+          if (isMobile()) {
+            document.addEventListener('touchstart', run, false)
+          }
         }
-      })
-  }
-
-  function audioStarter(el) {
-    const bgEl = el.find('.resume-audio__bg')
-    const audioEl = el.find('audio').get(0)
-    if (audioEl != null) {
-      if (isWxClient()) {
-        document.addEventListener('WeixinJSBridgeReady', function () {
-          audioEl.play()
-          bgEl.addClass('run')
-        }, false)
-      } else {
-        if (isMobile()) {
-          document.addEventListener('touchstart', run, false)
-        }
+      }
+  
+      function run() {
+        audioPlay(el)
       }
     }
   
-    function run() {
-      audioEl.play()
+    function audioPlay(el) {
+      const bgEl = el.find('.resume-audio__bg')
+      const audioEl = el.find('audio').get(0)
+      el.removeClass('paused')
+      el.addClass('playing')
       bgEl.addClass('run')
+      audioEl.play()
+    }
+  
+    function audioPause(el) {
+      const bgEl = el.find('.resume-audio__bg')
+      const audioEl = el.find('audio').get(0)
+      el.removeClass('playing')
+      el.addClass('paused')
+      bgEl.removeClass('run')
+      audioEl.pause()
     }
   }
 })

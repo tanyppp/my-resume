@@ -1,4 +1,64 @@
 .resume-page__slide2 {
     position: relative;
     background: url('../images/resume-bg-2.jpg') center / cover no-repeat;
+
+    &-about {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+        font-size: 16px;
+
+        &__photo {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 10px;
+            align-self: center;
+            border-radius: 50%;
+
+            &:hover {
+                box-shadow: 0 0 20px #337ab7;
+                animation: photoHover .25s both;
+            }
+
+            @keyframes photoHover {
+                0% {
+                    transform: scaleX(1);
+                }
+
+                50% {
+                    transform: scaleX(.8);
+                }
+
+                75% {
+                    transform: scaleX(1.2);
+                }
+
+                100% {
+                    transform: scaleX(1);
+                }
+            }
+        }
+
+        &__introduce {
+            h2 {
+                line-height: 36px;
+                font-size: 18px;
+                font-weight: bolder;
+            }
+
+            ul {
+                margin-left: 30px;
+                list-style-type: disc;
+
+                li {
+                    line-height: 32px;
+                }
+            }
+        }
+    }
 }

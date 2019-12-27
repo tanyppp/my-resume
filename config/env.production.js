@@ -1,3 +1,3 @@
 module.exports = {
-    serverIp: 'https://tanyipeng.github.io/'
+  serverIp: 'http://resume.tanypstrive.cn/'
 }
