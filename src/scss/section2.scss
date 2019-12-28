@@ -24,24 +24,6 @@
                 box-shadow: 0 0 20px #337ab7;
                 animation: photoHover .25s both;
             }
-
-            @keyframes photoHover {
-                0% {
-                    transform: scaleX(1);
-                }
-
-                50% {
-                    transform: scaleX(.8);
-                }
-
-                75% {
-                    transform: scaleX(1.2);
-                }
-
-                100% {
-                    transform: scaleX(1);
-                }
-            }
         }
 
         &__introduce {
