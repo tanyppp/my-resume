@@ -1,3 +1,3 @@
-export function initSection5() {
+export function initSection6() {
 
 }

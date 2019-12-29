@@ -45,6 +45,19 @@ $(function () {
   function fullpageEngine() {
     const $root = $('#resume-page')
     const $sections = $root.find('.section')
+    const $pageContainers = $root.find('.page-container')
+    $pageContainers
+      .not(':eq(0)')
+        .css({
+          left: '45%',
+          opacity: 1
+        })
+    $pageContainers
+      .eq(0)
+        .css({
+          top: '-100%',
+          opacity: 1
+        })
 
     $root
       .fullpage({
@@ -57,8 +70,39 @@ $(function () {
           '我的经历',
           '我的作品',
           '联系我'
-        ]
+        ],
+        afterLoad(_, index) {
+          const $pageContainer = $pageContainers.eq(index - 1)
+          if (!$pageContainer) {
+            return
+          }
+          const styles = index === 1
+            ? {
+              top: '50%',
+              opacity: 1
+            } : {
+              left: '50%',
+              opacity: 1
+            }
+          $pageContainer.animate(styles, 300)
+        },
+        onLeave(index) {
+          const $pageContainer = $pageContainers.eq(index - 1)
+          if (!$pageContainer) {
+            return
+          }
+          const styles = index === 1
+            ? {
+              top: '-100%',
+              opacity: 0
+            } : {
+              left: '45%',
+              opacity: 0
+            }
+          $pageContainer.animate(styles, 300)
+        }
       })
+
     // audio
     createAudio()
     // pages

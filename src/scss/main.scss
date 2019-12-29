@@ -9,6 +9,17 @@
 @import './section5.scss';
 @import './section6.scss';
 
+#resume-page {
+  div.fp-section {
+    .page-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
 #loading-container {
   position: fixed;
   left: 0;
@@ -90,6 +101,10 @@ div#fp-nav.right {
       margin: 24px 7px;
 
       a {
+        &:focus {
+          outline: none;
+        }
+
         span {
           left: 0;
           top: 0;
