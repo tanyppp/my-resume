@@ -79,16 +79,6 @@ div#fp-nav.right {
       transform: scale(1.1);
       background: url('../images/boll.svg') center / cover no-repeat;
 
-      @keyframes bgRun {
-        0% {
-          transform: rotate(0) scale(1.1);
-        }
-
-        100% {
-          transform: rotate(360deg) scale(1.1);
-        }
-      }
-
       &.run {
         animation: bgRun 30s infinite;
       }
