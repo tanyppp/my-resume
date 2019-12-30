@@ -26,8 +26,6 @@ import '@babel/polyfill'
 import '../scss/main.scss'
 
 $(function () {
-  const now = Date.now()
-
   // loading
   hideLoadingOnLoaded()
   // fullpage
@@ -37,7 +35,6 @@ $(function () {
     window.addEventListener('load', hideLoading, false)
 
     function hideLoading() {
-      alert((Date.now() - now) / 1000)
       // audio
       createAudio()
       $('#loading-container')
