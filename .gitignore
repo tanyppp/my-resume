@@ -2,3 +2,5 @@
 /node_modules
 /.vscode
 /*-error.log
+/*-lock.json
+/*.lock
