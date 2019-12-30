@@ -142,14 +142,14 @@ module.exports = {
         common: { // 抽离公共模块
           chunks: 'initial',
           minSize: 0, // 大于等于0就要进行抽离
-          minChunks: 2 // 最少要引用两次才抽离
+          minChunks: 1 // 最少要引用两次才抽离
         },
         vendor: { // 抽离node_modules下的模块
           priority: 1, // 优先抽离
           test: /node_modules/,
           chunks: 'initial',
           minSize: 0,
-          minChunks: 2
+          minChunks: 1
         }
       }
     } : {}
