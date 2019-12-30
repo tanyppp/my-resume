@@ -7,5 +7,5 @@ const app = express()
 app.use(express.static(config.staticPath))
 app.get('*', (_, res) => res.end(fs.readFileSync(config.staticPath + '/index.html')))
 app.listen(config.port, () => {
-  console.log('app listen at port:' + config.port)
+  console.log('app listen at port: ' + config.port)
 })
